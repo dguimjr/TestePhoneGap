@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=320; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Minimal AppLaud App</title>
+
+	  <!-- Teste JS Plugin -->
+	  <script type="text/javascript" charset="utf-8" src="phonegap-1.4.1.js"></script>
+	  <script type="text/javascript" charset="utf-8" src="testeJSplugin.js"></script>	  
+	  <script type="text/javascript" charset="utf-8">
+      
+        var onDeviceReady = function() {
+            document.getElementById("devready").innerHTML = "OnDeviceReady fired.";
+        };
+
+        function init() {
+            document.addEventListener("deviceready", onDeviceReady, true);
+        }   
+        
+        function callJSPlugin() {
+    		// clear inputs
+	    	document.getElementById('resultado').value = "";
+		    	     
+	    	var inputParams = [{"arg1": document.getElementById("arg1").value,
+    						    "arg2": document.getElementById("arg2").value}];
+    	    	    
+    	    window.plugins.testeJSplugin.generateTesteJSPlugin(inputParams,
+    			function(result) {document.getElementById('resultado').value = result.result;},
+	            function(error) {alert("TestePlugin Falhou: " + error); }
+	        );
+    	}
+    	    	
+</script>  
+
+  </head>
+  <body onload="init();" id="stage" class="theme">
+    <h2>Minimal AppLaud App</h2>
+
+	<p>Your app goes here.</p>
+	<p>
+    <span id="devready">onDeviceReady not fired.</span>
+    </p>    
+    
+    <!-- Teste JS Plugin -->
+	<label for="basic">Argumento1:</label>
+	<input type="text" name="arg1" id="arg1" /><br />
+ 
+ 	<label for="basic">Argumento2:</label>
+	<input type="text" name="arg2" id="arg2" /><br />
+		  
+   	<label for="basic">Resultado:</label>
+   	<input type="text" name="resultado" id="resultado" />  
+   	
+   	<a href="#" onClick="callJSPlugin();">Calcula</a>
+	<a href="index.html">Home</a>						
+	    
+  </body>
+</html>
